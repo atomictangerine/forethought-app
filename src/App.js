@@ -1,6 +1,10 @@
 import React from 'react';
-import Moment from 'react-moment';
-import './App.css';
+
+import Header from './Header.js';
+import List from './List.js';
+import Footer from './Footer.js';
+
+import './App.scss';
 
 class App extends React.Component {
   
@@ -8,22 +12,23 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      showAddTodoButton: true,
+      errorMessage: '',
+      showNewTodo: false,
       newTodo: '',
       newTodoTime: '',
       items: [
         {
-          name: 'todo 1      ',
+          name: 'todo 1',
           isChecked: false,
           time: '13:03',
         },
         {
-          name: 'todo 2      ',
+          name: 'this is a really really really really super long label that may make this super wide',
           isChecked: false,
           time: '02:45',
         },
         {
-          name: 'todo 3    ',
+          name: 'todo 3',
           isChecked: false,
           time: '22:00',
         }
@@ -39,11 +44,23 @@ class App extends React.Component {
     this.setState({newTodoTime: event.target.value});
   }
 
+  handleInputChange = (event) => {
+    const index = event.target.name;
+    const isChecked = event.target.checked;
+
+    const tempState = [...this.state.items];
+    tempState[index].isChecked = isChecked;
+    
+    this.setState({ items: tempState });
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     const {newTodo, newTodoTime} = this.state; 
     if(newTodo && newTodoTime) {
       this.setTodo();
+    } else {
+      this.showError();
     }
   }
 
@@ -59,47 +76,60 @@ class App extends React.Component {
       ],
       newTodo: '',
       newTodoTime: '',
+      errorMessage: '',
+    })
+  }
+
+  showError = () => {
+    let errorMessage = '';
+    if(!this.newTodo && !this.newTodoTime) {
+      errorMessage = 'Please add a todo and the time it will due'
+    }
+    if(!this.newTodo) {
+      errorMessage = 'Please add some todo text';
+    }
+
+    errorMessage = 'Please add when this todo is due';
+
+    this.setState({
+      errorMessage: errorMessage,
     })
   }
 
   closeAddTodo = () => {
-    this.setState({showAddTodoButton: true})
+    this.setState(
+      {
+        showNewTodo: false,
+        newTodo: '',
+        newTodoTime: '',
+        errorMessage: '',
+      }
+    )
   }
 
   openAddTodo = () => {
-    this.setState({showAddTodoButton: false})
+    this.setState({showNewTodo: true})
   }
 
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <div>
-            <div>
-              <Moment format="D">{Date.now()}</Moment>
-            </div>
-            <div>{this.state.items.length} Tasks</div>
-          </div>
-          <div>
-            {this.state.items.map((item) => {
-              return (
-                <div key={item.name}>
-                  <input type="checkbox" name={item.name} value={item.isChecked} />
-                  <label>{item.name}</label>
-                  {item.time}
-                </div>)
-            })}
-            <div></div>
-          </div>
-          <button onClick={this.openAddTodo} hidden={!this.state.showAddTodoButton}>Add New Todo</button>
-          <div hidden={this.state.showAddTodoButton}>
-            <form onSubmit={this.handleSubmit}>
-              <input type="text" name="new-todo" value={this.state.newTodo} onChange={this.handleChange} required />
-              <input type="time" name="new-todo-time" value={this.state.newTodoTime} onChange={this.handleTimeChange} required/>
-              <button onClick={this.handleSubmit}>onSubmit</button>
-              <button onClick={this.closeAddTodo} >Cancel</button>
-            </form>
-          </div>
+        <div className="todo-list-container">
+          <Header numberOfTasks={this.state.items.length} />
+          <button onClick={this.openAddTodo} className="todo-list-floating-button">
+            <span className="font--large">+</span>
+          </button>
+          <List items={this.state.items} handleInputChange={this.handleInputChange} />
+          <Footer
+            newTodo={this.state.newTodo}
+            newTodoTime={this.state.newTodoTime}
+            showNewTodo={this.state.showNewTodo}
+            handleSubmit={this.handleSubmit}
+            handleChange={this.handleChange}
+            handleTimeChange={this.handleTimeChange}
+            closeAddTodo={this.closeAddTodo}
+            errorMessage={this.state.errorMessage}
+          />
         </div>
       </div>
     );

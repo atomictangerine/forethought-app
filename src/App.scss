@@ -1,0 +1,56 @@
+@import 'settings';
+
+.App {
+  background-color: $blue;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.todo-list-container {
+  min-width: 250px;
+  max-width: 450px;
+  background-color: $white;
+  border-radius: 8px;
+  position: relative;
+}
+
+.todo-list-floating-button {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+  right: 20px;
+  top: 70px;
+	background-color:$pink;
+	color:$white;
+	border-radius: 50px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-item-checkbox {
+  display: flex;
+  align-items: center;
+
+  input[type="checkbox"]:checked::after {
+    background-color: $pink;
+  }
+}
+
+.list-item-checkbox--label {
+  margin-left: 8px;
+}
+
+.list-item-crossed-out {
+  text-decoration: line-through;
+}
+

@@ -1,0 +1,43 @@
+@import 'settings';
+
+.container--footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputs-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.error-message {
+  display: block;
+  color: $pink;
+}
+
+.button {
+  padding: 4px 8px;
+  font-size: $small;
+  border-radius: 8px;
+  color: $pink;
+  cursor: pointer;
+}
+
+.button--secondary {
+  border: 1px solid $pink;
+}
+
+.button--text {
+  border: none;
+}

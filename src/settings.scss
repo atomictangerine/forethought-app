@@ -1,0 +1,51 @@
+$black: #000000;
+$blue: #2A71D5;
+$grey: #c7ccd4;
+$grey--accessible: #69729B;
+$pink: #d52a80;
+$white: #ffffff;
+
+$large: 24px;
+$medium: 18px;
+$small: 12px;
+$extra-small: 8px;
+
+.border--bottom {
+  border-bottom: 1px solid $grey;
+}
+
+.font--large {
+  font-size: $large;
+}
+
+.font--medium {
+  font-size: $medium;
+}
+
+.font--small {
+  font-size: $small;
+}
+
+.font--extra-small {
+  font-size: $extra-small;
+}
+
+.font--bold {
+  font-weight: bold;
+}
+
+.font--grey {
+  color: $grey--accessible;
+}
+
+.margin-left--extra-small {
+  margin-left: $extra-small;
+}
+
+.padding--large {
+  padding: $large;
+}
+
+.hidden {
+  display: none;
+}

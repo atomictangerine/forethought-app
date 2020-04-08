@@ -1,0 +1,16 @@
+@import 'settings';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date {
+  font-size: 24px;
+  color: $blue;
+}
+
+.tasks {
+  margin-top: auto;
+  margin-bottom: auto;
+}
